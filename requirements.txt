@@ -11,5 +11,6 @@ xgboost
 catboost
 pymongo
 from_root
+certifi
 
 -e .
