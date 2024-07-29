@@ -12,5 +12,8 @@ catboost
 pymongo
 from_root
 certifi
+evidently==0.2.8
+dill
+PyYAML
 
 -e .
