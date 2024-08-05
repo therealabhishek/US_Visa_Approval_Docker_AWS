@@ -2,14 +2,15 @@ from us_visa.configuration.mongo_db_connection import MongoDBClient
 
 ins = MongoDBClient()
 
-from us_visa.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig, ModelEvaluationConfig
-from us_visa.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, DataTransformationArtifact, ModelTrainerArtifact, ModelEvaluationArtifact
+from us_visa.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig, ModelEvaluationConfig, ModelPusherConfig
+from us_visa.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, DataTransformationArtifact, ModelTrainerArtifact, ModelEvaluationArtifact, ModelPusherArtifact
 
 from us_visa.components.data_ingestion import DataIngestion
 from us_visa.components.data_validation import DataValidation
 from us_visa.components.data_transformation import DataTransformation
 from us_visa.components.model_trainer import ModelTrainer
 from us_visa.components.model_evaluation import ModelEvaluation
+from us_visa.components.model_pusher import ModelPusher
 
 # data ingestion
 di_ins = DataIngestion(DataIngestionConfig)
@@ -35,3 +36,8 @@ mt_artifact = mt_ins.initiate_model_trainer()
 me_ins = ModelEvaluation(model_eval_config=ModelEvaluationConfig, data_ingestion_artifact=di_artifact, model_trainer_artifact=mt_artifact)
 
 me_artifact = me_ins.initiate_model_evaluation()
+
+# model pusher
+mp_ins = ModelPusher(me_artifact, ModelPusherConfig)
+
+mp_art = mp_ins.initiate_model_pusher()
